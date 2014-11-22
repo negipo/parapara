@@ -1,7 +1,15 @@
+require 'erb'
+
 module Parapara
   class Config
     def initialize(data)
       @data = default.merge(data)
+    end
+
+    def self.all
+      YAML.load_file('config/presentation.yaml').map do |data|
+        Config.new(data)
+      end
     end
 
     def url
@@ -17,7 +25,11 @@ module Parapara
     end
 
     def converted_file_path
-      Pathname.new("tmp/converted/#{key}")
+      Pathname.new("static#{raw_converted_file_path}")
+    end
+
+    def raw_converted_file_path
+      "/converted/#{key}"
     end
 
     def text
@@ -40,6 +52,10 @@ module Parapara
       @data[:pointsize]
     end
 
+    def kerning
+      @data[:kerning] || @data[:pointsize].to_f / 3
+    end
+
     def local?
       !@data[:file_path].nil?
     end
@@ -51,7 +67,7 @@ module Parapara
     private
 
     def default
-      @default ||= YAML.load_file('config/default.yaml')
+      @default ||= YAML.load(ERB.new(File.read('config/default.yaml')).result)
     end
 
     def key

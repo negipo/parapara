@@ -36,3 +36,4 @@ build/
 # mine
 config/presentation.yaml
 config/default.yaml
+/static/

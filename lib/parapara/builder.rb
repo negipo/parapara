@@ -8,29 +8,22 @@ module Parapara
       @config = config
     end
 
-    def build
-      fetch if require_fetch?
-
-      image = build_image(@config.file_path)
-      write_converted_image(image)
-      puts "hi #{@config.converted_file_path}"
-      `open -a Google\\ Chrome #{@config.converted_file_path}`
-    end
-
     def self.build
-      configs.each do |config|
+      Config.all.each do |config|
         builder = self.new(config)
         builder.build
       end
     end
 
-    private
+    def build
+      fetch if require_fetch?
 
-    def self.configs
-      @configs ||= YAML.load_file('config/presentation.yaml').map do |data|
-        Config.new(data)
-      end
+      image = build_image(@config.file_path)
+      write_converted_image(image)
+      `open -a Google\\ Chrome #{@config.converted_file_path}`
     end
+
+    private
 
     def fetch
       response = RestClient.get(@config.url)
@@ -63,20 +56,21 @@ module Parapara
 
     def append_text(source)
       config = @config
-      pointsize = pointsize(source.columns, config)
+      pointsize, kerning = pointsize_and_kerning(source.columns, config)
       draw = Magick::Draw.new.annotate(source, 0, 0, 0, 0, config.text) do
         self.font = config.font
         self.fill = config.color
         self.stroke = config.stroke
         self.pointsize = pointsize
+        self.kerning = kerning
         self.gravity = Magick::CenterGravity
       end
       source
     end
 
-    def pointsize(image_width, config)
+    def pointsize_and_kerning(image_width, config)
       if config.pointsize.kind_of?(Numeric)
-        config.pointsize
+        [config.pointsize, config.kerning]
       else
         max_text_size = config.text.split("\n").sort_by(&:length).last.length
         base = image_width.to_f / max_text_size
@@ -84,9 +78,9 @@ module Parapara
 
         # For double width chars
         if config.pointsize == :half
-          base
+          [base * 0.9,  base * 0.1]
         else
-          base * 2
+          [base * 1.8,  base * 0.2]
         end
       end
     end

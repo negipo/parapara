@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>presentation</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://dl.dropboxusercontent.com/u/275354/lib/coffee-script.js"></script>
+    <script type="text/coffeescript">
+execAndSetInterval = (func, int) ->
+  func()
+  setInterval func, int
+
+class Presentation
+  constructor: (wrapper) ->
+    @index = 0
+    @wrapper = wrapper
+    $.getJSON('/presentations.json', (results) =>
+      @urls = []
+      results.forEach((result) =>
+        @urls.push(result['path'])
+      )
+      @render()
+    )
+
+  prev: ->
+    @index = @index - 1
+    if @index < 0
+      @index = @urls.length - 1
+    @render()
+
+  next: ->
+    @index = @index + 1
+    if @index >= @urls.length
+      @index = 0
+    @render()
+
+  render: ->
+    @wrapper.css('background-image', "url(#{@urls[@index]})")
+
+jQuery(($)->
+  presentation = new Presentation($('body'))
+  $(window).keydown((e) ->
+    if e.keyCode == 13 || e.keyCode == 74
+      presentation.prev()
+    else if e.keyCode == 75
+      presentation.next()
+  )
+
+  execAndSetInterval(->
+    w = $(window).width()
+    h = $(window).height()
+    $('body').width("#{w}px")
+    $('body').height("#{w}px")
+  )
+)
+    </script>
+    <link rel="stylesheet" type="text/css" href="//dl.dropbox.com/u/275354/lib/cssreset-min.css">
+    <style type="text/css" media="screen">
+body {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+    </style>
+  </head>
+  <body>
+  </body>
+</html>

@@ -15,9 +15,10 @@ task :build do
 end
 
 task :server do
-  puts 'server'
+  Parapara::Server.run!
 end
 
-task :clean do
+task :cleanup do
   sh 'rm -rf tmp/*'
+  sh 'rm -rf static/converted/*'
 end
