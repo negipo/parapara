@@ -11,7 +11,6 @@ using gifs.
 ```
 $ git clone http://github.com/negipo/parapara
 $ cd parapara
-$ cp config/default.yml.sample config/default.yml
 $ cp config/presentation.yml.sample config/presentation.yml
 $ # you can modify presentation.yml
 $ rake
