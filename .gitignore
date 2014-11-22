@@ -34,6 +34,6 @@ build/
 .rvmrc
 
 # mine
-config/presentation.yaml
-config/default.yaml
+config/presentation.yml
+config/default.yml
 /static/

@@ -16,11 +16,11 @@ module Parapara
     end
 
     def build
+      puts "building #{@config.text}"
       fetch if require_fetch?
 
       image = build_image(@config.file_path)
       write_converted_image(image)
-      `open -a Google\\ Chrome #{@config.converted_file_path}`
     end
 
     private

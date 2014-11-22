@@ -1,0 +1,4 @@
+---
+:font: <%= ENV['HOME'] %>/Library/Fonts/NotoSansJP-Black.otf
+:color: black
+:stroke: transparent

@@ -7,7 +7,7 @@ module Parapara
     end
 
     def self.all
-      YAML.load_file('config/presentation.yaml').map do |data|
+      YAML.load_file('config/presentation.yml').map do |data|
         Config.new(data)
       end
     end
@@ -67,7 +67,7 @@ module Parapara
     private
 
     def default
-      @default ||= YAML.load(ERB.new(File.read('config/default.yaml')).result)
+      @default ||= YAML.load(ERB.new(File.read('config/default.yml')).result)
     end
 
     def key
