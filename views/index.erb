@@ -41,9 +41,9 @@ jQuery(($)->
   presentation = new Presentation($('body'))
   $(window).keydown((e) ->
     if e.keyCode == 13 || e.keyCode == 74
-      presentation.prev()
-    else if e.keyCode == 75
       presentation.next()
+    else if e.keyCode == 75
+      presentation.prev()
   )
 
   execAndSetInterval(->
