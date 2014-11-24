@@ -16,7 +16,8 @@ module Parapara
     get '/presentations.json' do
       presentations = Config.all.map do |config|
         {
-          path: config.raw_converted_file_path
+          path: config.raw_converted_file_path,
+          text: config.text
         }
       end
 

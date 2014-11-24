@@ -15,9 +15,9 @@ class Presentation
     @index = 0
     @wrapper = wrapper
     $.getJSON('/presentations.json', (results) =>
-      @urls = []
+      @presentations = []
       results.forEach((result) =>
-        @urls.push(result['path'])
+        @presentations.push(result)
       )
       @render()
     )
@@ -25,17 +25,19 @@ class Presentation
   prev: ->
     @index = @index - 1
     if @index < 0
-      @index = @urls.length - 1
+      @index = @presentations.length - 1
     @render()
 
   next: ->
     @index = @index + 1
-    if @index >= @urls.length
+    if @index >= @presentations.length
       @index = 0
     @render()
 
   render: ->
-    @wrapper.css('background-image', "url(#{@urls[@index]})")
+    presentation = @presentations[@index]
+    @wrapper.css('background-image', "url(#{presentation.path})")
+    $('title').text(presentation.text)
 
 jQuery(($)->
   presentation = new Presentation($('body'))
