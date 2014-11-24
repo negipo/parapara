@@ -1,4 +1,4 @@
 ---
-:font: <%= ENV['HOME'] %>/Library/Fonts/NotoSansJP-Black.otf
+:font: <%= ENV['HOME'] %>/Library/Fonts/NotoSansCJKjp-Black.otf
 :color: white
 :stroke: transparent

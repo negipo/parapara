@@ -7,6 +7,7 @@ You can make
 using gifs.
 
 ### usage
+You have to install [Noto Sans CJK JP](https://www.google.com/get/noto/#/family/noto-sans-jpan) into your mac at first.
 
 ```
 $ git clone http://github.com/negipo/parapara
