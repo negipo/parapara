@@ -13,15 +13,15 @@ module Parapara
       erb :index
     end
 
-    get '/presentations.json' do
-      presentations = Config.all.map do |config|
+    get '/slides.json' do
+      slides = Config.all.map do |config|
         {
           path: config.raw_converted_file_path,
           text: config.text
         }
       end
 
-      json presentations
+      json slides
     end
   end
 end

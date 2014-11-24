@@ -14,10 +14,10 @@ class Presentation
   constructor: (wrapper) ->
     @index = 0
     @wrapper = wrapper
-    $.getJSON('/presentations.json', (results) =>
-      @presentations = []
+    $.getJSON('/slides.json', (results) =>
+      @slides = []
       results.forEach((result) =>
-        @presentations.push(result)
+        @slides.push(result)
       )
       @render()
     )
@@ -25,19 +25,19 @@ class Presentation
   prev: ->
     @index = @index - 1
     if @index < 0
-      @index = @presentations.length - 1
+      @index = @slides.length - 1
     @render()
 
   next: ->
     @index = @index + 1
-    if @index >= @presentations.length
+    if @index >= @slides.length
       @index = 0
     @render()
 
   render: ->
-    presentation = @presentations[@index]
-    @wrapper.css('background-image', "url(#{presentation.path})")
-    $('title').text(presentation.text)
+    slide = @slides[@index]
+    @wrapper.css('background-image', "url(#{slide.path})")
+    $('title').text(slide.text)
 
 jQuery(($)->
   presentation = new Presentation($('body'))
