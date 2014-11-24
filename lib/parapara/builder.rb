@@ -78,8 +78,8 @@ module Parapara
 
     def get_text(size: nil, index: nil, texts: nil)
       return texts unless texts.kind_of?(Array)
-      splitter = size / texts.size
-      if index / splitter >= texts.size
+      splitter = size.to_f / texts.size
+      if index.to_f / splitter >= texts.size
         texts[texts.size - 1]
       else
         texts[index / splitter]
