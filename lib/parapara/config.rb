@@ -64,6 +64,10 @@ module Parapara
       File.exists?(cache_file_path)
     end
 
+    def converted_file_exists?
+      File.exists?(converted_file_path)
+    end
+
     private
 
     def default

@@ -18,6 +18,7 @@ module Parapara
     def build
       puts "building #{@config.text}"
       fetch if require_fetch?
+      return unless require_convert?
 
       image = build_image(@config.file_path)
       write_converted_image(image)
@@ -87,6 +88,10 @@ module Parapara
 
     def require_fetch?
       !@config.local? && !@config.cache_exists?
+    end
+
+    def require_convert?
+      !@config.converted_file_exists?
     end
   end
 end
