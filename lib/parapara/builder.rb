@@ -56,6 +56,8 @@ module Parapara
     end
 
     def append_text(source)
+      return source unless @config.text
+
       config = @config
       pointsize, kerning = pointsize_and_kerning(source.columns, config)
       draw = Magick::Draw.new.annotate(source, 0, 0, 0, 0, config.text) do
