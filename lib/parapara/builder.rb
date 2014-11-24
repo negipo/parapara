@@ -38,8 +38,9 @@ module Parapara
       blob = File.open(file_path, 'r').read
       sources = ::Magick::ImageList.new.from_blob(blob).coalesce
       images = ::Magick::ImageList.new
-      sources.each do |source|
-        target = append_text(source)
+      sources.each_with_index do |source, idx|
+        text = get_text(size: sources.size, index: idx, texts: @config.text)
+        target = append_text(source, text)
         target.delay = source.delay
         images << target
       end
@@ -55,12 +56,16 @@ module Parapara
       File.write(@config.converted_file_path, image)
     end
 
-    def append_text(source)
-      return source unless @config.text
+    def append_text(source, text)
+      return source unless text
 
       config = @config
-      pointsize, kerning = pointsize_and_kerning(source.columns, config)
-      draw = Magick::Draw.new.annotate(source, 0, 0, 0, 0, config.text) do
+      pointsize, kerning = pointsize_and_kerning(
+        image_width: source.columns,
+        text: text,
+        config: config
+      )
+      draw = Magick::Draw.new.annotate(source, 0, 0, 0, 0, text) do
         self.font = config.font
         self.fill = config.color
         self.stroke = config.stroke
@@ -71,11 +76,21 @@ module Parapara
       source
     end
 
-    def pointsize_and_kerning(image_width, config)
+    def get_text(size: nil, index: nil, texts: nil)
+      return texts unless texts.kind_of?(Array)
+      splitter = size / texts.size
+      if index / splitter >= texts.size
+        texts[texts.size - 1]
+      else
+        texts[index / splitter]
+      end
+    end
+
+    def pointsize_and_kerning(image_width: image_width, text: text, config: config)
       if config.pointsize.kind_of?(Numeric)
         [config.pointsize, config.kerning]
       else
-        max_text_size = config.text.split("\n").sort_by(&:length).last.length
+        max_text_size = text.split("\n").sort_by(&:length).last.length
         base = image_width.to_f / max_text_size
         base /= 1.618
 

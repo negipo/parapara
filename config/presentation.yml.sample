@@ -1,13 +1,15 @@
 ---
-- :url: https://38.media.tumblr.com/ab18cc7176b51d913659db81ea71ef51/tumblr_nffqovDIu71qz4e26o1_500.gif
+- :file_path: demo/files/nomad.gif
   :text: プレゼン
   :pointsize: :half
-  :color: white
-- :file_path: demo/files/nomad.gif
-  :text: |-
+  :color: black
+- :url: https://38.media.tumblr.com/ab18cc7176b51d913659db81ea71ef51/tumblr_nffqovDIu71qz4e26o1_500.gif
+  :text:
+  - |-
 
+    LIKE
+  - |-
 
-    LIKE THIS
-  :color: white
-  :pointsize: 80
+    THIS
+  :pointsize: 120
   :kerning: 6
