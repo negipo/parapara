@@ -19,6 +19,6 @@ task :server do
 end
 
 task :cleanup do
-  sh 'rm -rf tmp/*'
-  sh 'rm -rf static/converted/*'
+  sh 'rm -rf tmp/cache'
+  sh 'rm -rf static/converted'
 end
