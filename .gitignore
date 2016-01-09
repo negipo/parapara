@@ -35,4 +35,4 @@ build/
 
 # mine
 config/presentation.yml
-/static/
+/static/converted
