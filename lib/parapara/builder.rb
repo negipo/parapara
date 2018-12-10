@@ -86,7 +86,7 @@ module Parapara
       end
     end
 
-    def pointsize_and_kerning(image_width: image_width, text: text, config: config)
+    def pointsize_and_kerning(image_width:, text:, config:)
       if config.pointsize.kind_of?(Numeric)
         [config.pointsize, config.kerning]
       else
