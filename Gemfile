@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bundler'
-gem 'rest_client'
+gem 'rest-client'
 gem 'pry'
 gem 'sinatra'
 gem 'sinatra-contrib'

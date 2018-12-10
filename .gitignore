@@ -36,3 +36,5 @@ build/
 # mine
 config/presentation.yml
 /static/converted
+
+Gemfile.lock
