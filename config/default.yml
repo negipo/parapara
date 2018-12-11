@@ -1,5 +1,6 @@
 ---
-#:font: <%= ENV['HOME'] %>/Library/Fonts/NotoSansCJKjp-Black.otf
-:font: /Library/Fonts/ヒラギノ丸ゴ ProN W4.ttc
+# :font: <%= ENV['HOME'] %>/Library/Fonts/NotoSansCJKjp-Black.otf
+:font: /Users/po/Library/Fonts/NotoSansCJKjp-Black.otf
+# :font: /Library/Fonts/ヒラギノ丸ゴ ProN W4.ttc
 :color: white
 :stroke: transparent
